@@ -13,3 +13,7 @@ export class Vector2{
             return new Vector2()
     }
 }
+
+Vector2.prototype['+'] = function (b) {
+    return new Vector2(this.x+b.x,this.y+b.y)
+}
