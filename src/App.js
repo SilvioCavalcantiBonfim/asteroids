@@ -8,9 +8,12 @@ import ViewPort from './ViewPort';
 import ScoreBoard from './components/Score';
 import Life from './components/Life';
 import Title from './components/Title';
+import Footer1 from './components/Footer/Footer1';
+import Footer2 from './components/Footer/Footer2';
 
 const startFace = Math.floor(Math.random() * 4);
 function App() {
+
   const window = ViewPort();
 
   const rocket = new RocketClass({ position: { x: window.width / 2, y: window.height / 2 }, rotate: 0 }, window.vmin * 0.05, {}, { spawn: 15 });
@@ -21,7 +24,7 @@ function App() {
 
   const [state, setState] = useState(false);
 
-  const [meteor, setMeteor] = useState([]);
+  // const [meteor, setMeteor] = useState([]);
 
   rocket.model = rocket_svg;
   useEffect(() => {
@@ -76,6 +79,8 @@ function App() {
       <Title submitHandle={(e) => { setState((l) => { return !l }) }} state={state} window={window} />
       <Life life={3} state={state} window={window} />
       {bullet.map((e, i) => { return <img src={bullet_svg} style={{ position: 'absolute', left: e.position[0] - e.size / 2, top: e.position[1] - e.size / 2, width: e.size, height: e.size }} alt='' key={i} /> })}
+      <Footer1 state={state}/>
+      <Footer2 state={state}/>
     </div>
   );
 }

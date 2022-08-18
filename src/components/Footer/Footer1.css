@@ -1,0 +1,12 @@
+.footer1{
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    position: absolute;
+    bottom: 1vh;
+    right: 1vw;
+    font-weight: bold;
+}
+.footer1 a:visited, .footer1 a:link, .footer1 a:hover, .footer1 a:active{
+    text-decoration: none;
+    color: black;
+}

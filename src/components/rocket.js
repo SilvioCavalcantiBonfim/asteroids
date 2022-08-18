@@ -17,8 +17,6 @@ export class RocketClass {
     }
 };
 const Rocket = (props) => {
-    //0 - top
-    //1 - left
     return <img src={props.rocket.model} alt='' style={{
         ...props.rocket.style,
         position: 'absolute',

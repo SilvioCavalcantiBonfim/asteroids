@@ -14,7 +14,7 @@ body {
 
 @font-face {
   font-family: 'Score';
-  src: local('Score'), url('./fonts/04B_31__.TTF') format('truetype');
+  src: local('Score'), url('./fonts/SF Pixelate Bold.ttf') format('truetype');
   font-weight: normal;
 }
 
