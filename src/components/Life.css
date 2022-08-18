@@ -1,0 +1,7 @@
+.live{
+    position: absolute;
+    font-family: 'Score';
+    text-transform: uppercase;
+    right: 0;
+    transition: opacity 1s;
+}

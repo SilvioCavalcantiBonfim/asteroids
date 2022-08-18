@@ -1,3 +1,8 @@
+*{
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +10,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'Score';
+  src: local('Score'), url('./fonts/04B_31__.TTF') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Title';
+  src: local('Title'), url('./fonts/rocketpopstraight.ttf') format('truetype');
+  font-weight: normal;
 }
 
 code {
