@@ -13,10 +13,9 @@ import Footer2 from './components/Footer/Footer2';
 
 const startFace = Math.floor(Math.random() * 4);
 function App() {
-
   const window = ViewPort();
 
-  const rocket = new RocketClass({ position: { x: window.width / 2, y: window.height / 2 }, rotate: 0 }, window.vmin * 0.05, {}, { spawn: 15 });
+  const rocket = new RocketClass({ x: window.width / 2, y: window.height / 2 }, window.vmin * 0.05, {}, { spawn: 15 });
 
   const [rocketRotation, setRocketRotation] = useState(0);
 
@@ -24,9 +23,10 @@ function App() {
 
   const [state, setState] = useState(false);
 
-  // const [meteor, setMeteor] = useState([]);
+  // const [enemy, setEnemy] = useState([]);
 
   rocket.model = rocket_svg;
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setBullet((l) => {
@@ -47,31 +47,35 @@ function App() {
 
   const shot = (e) => {
     let newBullet = { ...GenericalBullet };
-    const v = new Vector2(e.clientX - rocket.transform.position.x, e.clientY - rocket.transform.position.y);
+    const v = new Vector2(e.clientX - rocket.position.x, e.clientY - rocket.position.y);
     newBullet.velocity = new Vector2(2 * v.x / v.magnitude, 2 * v.y / v.magnitude);
-    newBullet.position = [rocket.transform.position.x + rocket.bullet.spawn * Math.cos(rocketRotation), rocket.transform.position.y + rocket.bullet.spawn * Math.sin(rocketRotation)];
+    newBullet.position = [rocket.position.x + rocket.bullet.spawn * Math.cos(rocketRotation), rocket.position.y + rocket.bullet.spawn * Math.sin(rocketRotation)];
     setBullet((l) => { return l.concat([newBullet]) });
   }
 
-  let StartPosition = [0, 0];
+  let StartPosition = {x: 0, y: 0};
   switch (startFace) {
     case 0:
-      StartPosition = [Math.random() * window.height, -rocket.size]
+      StartPosition.x = Math.random() * window.height;
+      StartPosition.y = -rocket.size;
       break;
     case 1:
-      StartPosition = [-rocket.size, Math.random() * window.width]
+      StartPosition.x = -rocket.size;
+      StartPosition.y = Math.random() * window.width;
       break;
     case 2:
-      StartPosition = [Math.random() * window.height, window.width + rocket.size]
+      StartPosition.x = Math.random() * window.height;
+      StartPosition.y = window.width + rocket.size;
       break;
     case 3:
-      StartPosition = [window.width + rocket.size, Math.random() * window.width]
+      StartPosition.x = window.width + rocket.size;
+      StartPosition.y = Math.random() * window.width;
       break;
 
     default:
       break;
   }
-
+  
   return (
     <div className="App" style={{ width: window.width, height: window.height }} onMouseMove={(!state) ? () => { } : rotation} onClick={(!state) ? () => { } : shot}>
       <Rocket rocket={rocket} StartPosition={StartPosition} rotate={rocketRotation} state={state} window={window} />
