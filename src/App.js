@@ -1,17 +1,20 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import bullet_svg from './svg-components/bullet.svg';
 import rocket_svg from './svg-components/rocket.svg';
 import meteor_svg from './svg-components/meteor.svg';
+import satellite_svg from './svg-components/satellite.svg';
+import life_svg from './svg-components/life.svg';
 import { Vector2 } from './vector';
-import Rocket, { RocketClass, GenericalBullet } from './components/rocket';
+import { Rocket, RocketClass, GenericalBullet, BulletDrawn } from './components/rocket';
 import ViewPort from './ViewPort';
 import ScoreBoard from './components/Score';
-import Life from './components/Life';
+import BulletBar from './components/Bullets';
 import Title from './components/Title';
 import Footer1 from './components/Footer/Footer1';
 import Footer2 from './components/Footer/Footer2';
-import Enemy, { EnemyClass } from './components/enemy';
+import Meteor, { EnemyClass } from './components/enemy';
+import Life from './components/Life';
+import { BulletDescription } from './components/BulletDescription';
 
 function App() {
 
@@ -19,65 +22,177 @@ function App() {
 
   const rocket = new RocketClass({ x: window.width / 2, y: window.height / 2 }, window.vmin * 0.05, {}, { spawn: 15 }, rocket_svg);
 
-  const [startRandomPosition, setStartRandomPosition] = useState([Math.floor(Math.random() * 4), Math.random()]);
-
-  let StartPosition = {
-    x: [startRandomPosition[1] * window.height, -rocket.size, startRandomPosition[1] * window.height, -rocket.size, window.width + rocket.size][startRandomPosition[0]],
-    y: [-rocket.size,startRandomPosition[1] * window.width,window.width + rocket.size,startRandomPosition[1] * window.width][startRandomPosition[0]]
-  };
+  const [rocketLife, setRocketLife] = useState(4);
 
   const [rocketRotation, setRocketRotation] = useState(0);
 
-  const [bullet, setBullet] = useState([]);
+  const [score, setScore] = useState(0);
+
+  const [entity, setEntity] = useState([[], []]);
+
+  // 0 - balas, 1 - pedras
+
+  const [bulletType, setBulletType] = useState(0);
 
   const [state, setState] = useState(0);
 
-  const [enemys, setEnemys] = useState([[new EnemyClass({x: 0, y: 0}, 32, {}, meteor_svg, 1), new Vector2(Math.sqrt(2),Math.sqrt(2))]]);
+  const [amountBullet, setAmountBullet] = useState(100);
 
+  //processamento do movimento dos inimigos
+
+  //reset de variaveis
+  const reset = () => {
+    setAmountBullet(100);
+    setRocketLife(4);
+    if (score > localStorage.getItem("Score"))
+      localStorage.setItem("Score", score);
+    setScore(0);
+  };
+
+  //processamento do movimento das balas
   useEffect(() => {
     const interval = setInterval(() => {
-      setBullet((l) => {
-        return l.map((e) => {
-          return { ...e, position: [e.position[0] + e.velocity.x, e.position[1] + e.velocity.y] }
-        }).filter((e) => {
-          return e.position[0] > 0 && e.position[0] < window.width && e.position[1] > 0 && e.position[1] < window.height
+      let aux = [];
+      if (Number(Math.random()) < 0.001 && entity[1].length < 5 && state === 1) {
+        const FaceRandom = Math.floor(Math.random() * 4);
+        let positionEnemy = { x: [Math.random() * window.width, 0, Math.random() * window.width, window.width][FaceRandom], y: [0, Math.random() * window.height, window.height, Math.random() * window.height][FaceRandom] };
+        if (Number(Math.random()) < 0.01) {
+          aux = [
+            [new EnemyClass(
+              positionEnemy,
+              32,
+              {},
+              life_svg,
+              1,
+              7 + Math.floor(Math.random() * 5),
+              () => {
+                setRocketLife((b) => {
+                  if (b + 1 > 4)
+                    return 4;
+                  else
+                    return b + 1;
+                })
+              })
+              , new Vector2([0, 1, 0, -1][FaceRandom], [1, 0, -1, 0][FaceRandom]).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
+          ];
+        } else if (Number(Math.random()) < 0.11) {
+          aux = [
+            [new EnemyClass(
+              positionEnemy,
+              32,
+              {},
+              satellite_svg,
+              1,
+              7 + Math.floor(Math.random() * 5),
+              () => {
+                setAmountBullet((b) => {
+                  if (b + 10 > 100)
+                    return 100;
+                  else
+                    return b + 10;
+                })
+              })
+              , new Vector2([0, 1, 0, -1][FaceRandom], [1, 0, -1, 0][FaceRandom]).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
+          ];
+        } else if (Number(Math.random()) < 1) {
+          const setBullet = Number(Math.random());
+          let bulletCurrent = 0;
+          for (let i = 0; i < GenericalBullet.length; i++)
+            bulletCurrent += Number(i / GenericalBullet.length <= setBullet);
+          aux = [
+            [new EnemyClass(
+              positionEnemy,
+              32,
+              {},
+              satellite_svg,
+              1,
+              7 + Math.floor(Math.random() * 5),
+              () => { setBulletType(bulletCurrent - 1)})
+              , new Vector2([0, 1, 0, -1][FaceRandom], [1, 0, -1, 0][FaceRandom]).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
+          ];
+        } else {
+          aux = [
+            [new EnemyClass(
+              positionEnemy,
+              32,
+              {},
+              meteor_svg,
+              1 + Math.floor(Math.random() * 3),
+              7 + Math.floor(Math.random() * 5),
+              () => { })
+              , new Vector2(window.width / 2 - positionEnemy.x, window.height / 2 - positionEnemy.y).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
+          ];
         }
-        )
-      });
-      setEnemys((l) => {
-        return l.map((e) => {
-          e[0].x += e[1].x;
-          e[0].y += e[1].y;
-          return e;
-        }).filter((e) => {
-          return e[0].x > 0 && e[0].x < window.width && e[0].y > 0 && e[0].y < window.height
+      }
+      let aux_ = entity;
+      for (let i = 0; i < aux_[0].length; i++) {//bala
+        for (let j = 0; j < aux_[1].length; j++) {//inimigo
+          if (Vector2.distance(aux_[0][i].position, aux_[1][j][0]) <= aux_[1][j][0].size * [0.25, 0.7, 1.15][aux_[1][j][0].life - 1]) {
+            aux_[0][i].life = 0;
+            aux_[1][j][0].life -= aux_[0][i].damage;
+            if (aux_[1][j][0].life <= 0) {
+              setScore((s) => s + aux_[1][j][0].score);
+              aux_[1][j][0].action();
+              aux_[1][j][0].action = () => { };
+            }
+          }
         }
-        )
-      });
-    }, 10);
-    return () => clearInterval(interval);
-  }, [window]);
+      }
 
+      setEntity((aa) => {
+        let e = aux_;
+        return [e[0].map((b) => {
+          return { ...b, position: Vector2.sum(b.position, b.velocity) }
+        }).filter((b) => {
+          return b.position.x > 0 && b.position.x < window.width && b.position.y > 0 && b.position.y < window.height && b.life > 0
+        }), e[1].map((enemy) => {
+          enemy[0].x += enemy[1].x;
+          enemy[0].y += enemy[1].y;
+          if (new Vector2(enemy[0].x - window.width / 2, enemy[0].y - window.height / 2).magnitude < enemy[0].size && state !== 0) {
+            enemy[0].life = 0;
+            setRocketLife((l) => {
+              if (l - 1 === 0) {
+                setState(0);
+                setEntity([[], []]);
+              }
+              return l - 1;
+            });
+          }
+          return enemy;
+        }).filter((enemy) => {
+          return enemy[0].x > 0 && enemy[0].x < window.width && enemy[0].y > 0 && enemy[0].y < window.height && enemy[0].life > 0
+        }).concat(aux)]
+      })
+    }, 1);
+    return () => clearInterval(interval);
+  }, [window, state, entity]);
+
+  //rotação da nave
   const rotation = (e) => {
     setRocketRotation(Math.atan2(e.clientY - window.height / 2, e.clientX - window.width / 2))
   };
-
+  //Mecanica de tiro
   const shot = (e) => {
-    let newBullet = { ...GenericalBullet };
+    if (amountBullet === 0 || entity[0].length >= 7) return;
+    let newBullet = { ...GenericalBullet[bulletType] };
     const v = new Vector2(e.clientX - rocket.position.x, e.clientY - rocket.position.y);
-    newBullet.velocity = new Vector2(2 * v.x / v.magnitude, 2 * v.y / v.magnitude);
-    newBullet.position = [rocket.position.x + rocket.bullet.spawn * Math.cos(rocketRotation), rocket.position.y + rocket.bullet.spawn * Math.sin(rocketRotation)];
-    setBullet((l) => { return l.concat([newBullet]) });
+    newBullet.velocity = v.normalize.dotScalar(newBullet.scaleVelocity);
+    newBullet.position = new Vector2(rocket.position.x + rocket.bullet.spawn * Math.cos(rocketRotation), rocket.position.y + rocket.bullet.spawn * Math.sin(rocketRotation));
+
+    setEntity((e) => [e[0].concat([newBullet]), e[1]]);
+    setAmountBullet((l) => { return l - 1 });
   }
 
   return (
     <div className="App" style={{ width: window.width, height: window.height }} onMouseMove={(!state) ? () => { } : rotation} onClick={(!state) ? () => { } : shot}>
-      <Rocket rocket={rocket} StartPosition={StartPosition} rotate={rocketRotation} state={state} window={window} />
-      <ScoreBoard score={0} state={state} window={window} />
-      <Title submitHandle={(e) => { setState((l) => { return !l }) }} state={state} window={window} />
-      <Life life={3} state={state} window={window} />
-      {bullet.map((e, i) => { return <img src={bullet_svg} style={{ position: 'absolute', left: e.position[0] - e.size / 2, top: e.position[1] - e.size / 2, width: e.size, height: e.size }} alt='' key={i} /> })}
-      {enemys.map((e,i) => {return <Enemy enemy={e[0]} key={i}/>})}
+      <Rocket rocket={rocket} rotate={rocketRotation} state={state} window={window} />
+      <ScoreBoard score={score} state={state} window={window} />
+      <Title submitHandle={(e) => { setState((l) => { reset(); return l + 1; }) }} state={state} window={window} />
+      <Life state={state} life={rocketLife} window={window} />
+      <BulletBar state={state} window={window} amountBullet={amountBullet} />
+      <BulletDescription window={window} bullettype={bulletType} delay={10} state={state} />
+      {entity[0].map((e, i) => { return <BulletDrawn bullet={e} key={i} /> })}
+      {entity[1].map((e, i) => { return <Meteor enemy={e[0]} key={i} /> })}
       <Footer1 state={state} />
       <Footer2 state={state} />
     </div>

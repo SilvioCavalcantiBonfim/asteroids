@@ -1,0 +1,11 @@
+.imgMeteor {
+    animation-timing-function: linear;
+    animation-name: enemyrotate;
+    animation-iteration-count: infinite;
+}
+
+@keyframes enemyrotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}

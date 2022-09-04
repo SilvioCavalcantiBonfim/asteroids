@@ -1,10 +1,45 @@
 import { Vector2 } from '../vector';
+import bulletdefault_svg from '../svg-components/bullet.svg';
 
-export const GenericalBullet = {
+export const GenericalBullet = [{
     velocity: new Vector2(),
-    position: [0, 0],
-    size: 10
-};
+    position: new Vector2(),
+    size: 10,
+    life: 1,
+    scaleVelocity: 0.5,
+    mash: bulletdefault_svg,
+    damage: 2,
+    describe: {
+        title: 'disparo padrão',
+        body: 'disparo padrão usado pelas naves da terra.'
+    }
+},
+{
+    velocity: new Vector2(),
+    position: new Vector2(),
+    size: 5,
+    life: 1,
+    scaleVelocity: 1,
+    mash: bulletdefault_svg,
+    damage: 1,
+    describe: {
+        title: 'disparo rapido',
+        body: 'disparo rapido usado pelas naves da terra.'
+    }
+},
+{
+    velocity: new Vector2(),
+    position: new Vector2(),
+    size: 20,
+    life: 1,
+    scaleVelocity: 0.25,
+    mash: bulletdefault_svg,
+    damage: 2,
+    describe: {
+        title: 'disparo grande',
+        body: 'disparo grande usado pelas naves da terra.'
+    }
+}];
 
 
 export class RocketClass {
@@ -16,17 +51,26 @@ export class RocketClass {
         this.model = model;
     }
 };
-const Rocket = (props) => {
+export const Rocket = (props) => {
     return <img src={props.rocket.model} alt='' style={{
         ...props.rocket.style,
         position: 'absolute',
         width: props.rocket.size,
         height: props.rocket.size,
-        top: (!props.state)? props.StartPosition.x :props.rocket.position.y - (props.rocket.size) / 2,
-        left: (!props.state) ? props.StartPosition.y : props.rocket.position.x - (props.rocket.size) / 2,
+        top: props.rocket.position.y - (props.rocket.size) / 2,
+        left: props.rocket.position.x - (props.rocket.size) / 2,
         transform: "rotate(" + (props.rotate * (180 / Math.PI) + 90) + "DEG)",
-        transition: 'left 3s, top 3s',
+        opacity: props.state,
+        transition: 'opacity 1s',
     }} />
 };
 
-export default Rocket;
+export const BulletDrawn = (props) => {
+    return <div style={{
+        position: 'absolute',
+        left: props.bullet.position.x - props.bullet.size / 2,
+        top: props.bullet.position.y - props.bullet.size / 2
+    }}>
+        <img src={props.bullet.mash} style={{ width: props.bullet.size, height: props.bullet.size }} alt='' />
+    </div>
+}

@@ -1,0 +1,39 @@
+.body__description {
+    position: absolute;
+    z-index: 100000;
+    border: 3px solid #363636;
+    display: flexbox;
+    right: 3px;
+    font-family: 'Score';
+    text-transform: uppercase;
+}
+
+.info__description {
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+}
+
+.vl__description {
+    color: #4682B4;
+}
+
+.dm__description {
+    color: #B22222;
+}
+
+.title__description {
+    background-color: #363636;
+    border: 3px solid #363636;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.description {
+    padding-top: 10px;
+    font-size: 0.85rem;
+    padding-bottom: 10px;
+    background-color: white;
+}

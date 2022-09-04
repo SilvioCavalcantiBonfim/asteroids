@@ -1,7 +1,6 @@
-.live{
-    position: absolute;
-    font-family: 'Score';
-    text-transform: uppercase;
-    right: 0;
-    transition: opacity 1s;
+.life{
+    position:absolute;
+    top: 4px;
+    height: 24px;
+    margin-right: 10px;
 }

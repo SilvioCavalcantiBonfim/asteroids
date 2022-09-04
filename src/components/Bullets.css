@@ -1,0 +1,8 @@
+.bullet__bar{
+    top: 3px;
+    right: 3px;
+    position: absolute;
+    font-family: 'Score';
+    text-transform: uppercase;
+    transition: opacity 1s;
+}

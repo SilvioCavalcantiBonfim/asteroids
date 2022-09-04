@@ -6,14 +6,19 @@ export class Vector2{
     get magnitude(){
         return Math.sqrt(this.x**2+this.y**2);
     }
+    dotScalar(b){
+        return new Vector2(this.x*b,this.y*b);
+    }
     get normalize(){
         if(this.magnitude !== 0)
             return new Vector2(this.x/this.magnitude,this.y/this.magnitude)
         else
             return new Vector2()
     }
-}
-
-Vector2.prototype['+'] = function (b) {
-    return new Vector2(this.x+b.x,this.y+b.y)
+    static sum(a, b){
+        return new Vector2(a.x+b.x, a.y+b.y);
+    }
+    static distance(a,b){
+        return new Vector2(a.x-b.x,a.y-b.y).magnitude;
+    }
 }

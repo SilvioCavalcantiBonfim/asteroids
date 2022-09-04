@@ -1,9 +1,10 @@
 import './Life.css';
-import point_svg from '../svg-components/point.svg';
+import rocketLife_svg from '../svg-components/life.svg';
 
-const Life = (props) => {
-    return <div className="live" style={{opacity: Number(props.state)}}>
-        {[...Array(props.life).keys()].map((e) => {return <img src={point_svg} alt='' key={e}/>})}
+const Life = (props) =>{
+    return <div className='life' style={{right: props.window.width*0.1 + 9, opacity: Number(props.state)}}>
+        {[...Array(4-props.life).keys()].map((e) => <img src={rocketLife_svg} alt='' key={e} style={{opacity: 0.25}}/>)}
+        {[...Array(props.life).keys()].map((e) => <img src={rocketLife_svg} alt='' key={e}/>)}
     </div>
 }
 
