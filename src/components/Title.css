@@ -7,6 +7,7 @@
     left: 40vw;
     height: 14vh;
     transition: top 1s;
+    z-index: 10000;
 }
 
 .start__menu__submit{

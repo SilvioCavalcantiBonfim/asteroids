@@ -5,4 +5,5 @@
     font-family: 'Score';
     text-transform: uppercase;
     transition: opacity 1s;
+    z-index: 10000;
 }

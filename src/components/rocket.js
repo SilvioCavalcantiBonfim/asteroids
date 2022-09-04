@@ -1,44 +1,34 @@
 import { Vector2 } from '../vector';
-import bulletdefault_svg from '../svg-components/bullet.svg';
+import bulletdefault_svg from '../svg-components/bulletdefault.svg';
+import bullet1_svg from '../svg-components/bullet1.svg';
+import bullet2_svg from '../svg-components/bullet2.svg';
 
 export const GenericalBullet = [{
     velocity: new Vector2(),
     position: new Vector2(),
-    size: 10,
+    size: 15,
     life: 1,
     scaleVelocity: 0.5,
     mash: bulletdefault_svg,
-    damage: 2,
-    describe: {
-        title: 'disparo padrão',
-        body: 'disparo padrão usado pelas naves da terra.'
-    }
+    damage: 2
 },
 {
     velocity: new Vector2(),
     position: new Vector2(),
-    size: 5,
+    size: 15,
     life: 1,
     scaleVelocity: 1,
-    mash: bulletdefault_svg,
-    damage: 1,
-    describe: {
-        title: 'disparo rapido',
-        body: 'disparo rapido usado pelas naves da terra.'
-    }
+    mash: bullet1_svg,
+    damage: 1
 },
 {
     velocity: new Vector2(),
     position: new Vector2(),
     size: 20,
     life: 1,
-    scaleVelocity: 0.25,
-    mash: bulletdefault_svg,
-    damage: 2,
-    describe: {
-        title: 'disparo grande',
-        body: 'disparo grande usado pelas naves da terra.'
-    }
+    scaleVelocity: 0.35,
+    mash: bullet2_svg,
+    damage: 3
 }];
 
 
@@ -71,6 +61,6 @@ export const BulletDrawn = (props) => {
         left: props.bullet.position.x - props.bullet.size / 2,
         top: props.bullet.position.y - props.bullet.size / 2
     }}>
-        <img src={props.bullet.mash} style={{ width: props.bullet.size, height: props.bullet.size }} alt='' />
+        <img src={props.bullet.mash} className="bullet" style={{ width: props.bullet.size, height: props.bullet.size }} alt='' />
     </div>
 }

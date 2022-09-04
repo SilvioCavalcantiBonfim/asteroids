@@ -4,6 +4,9 @@ import rocket_svg from './svg-components/rocket.svg';
 import meteor_svg from './svg-components/meteor.svg';
 import satellite_svg from './svg-components/satellite.svg';
 import life_svg from './svg-components/life.svg';
+import enemyBdefault_svg from './svg-components/enemyBulletdefault.svg';
+import enemyBullet1_svg from './svg-components/enemyBullet1.svg';
+import enemyBullet2_svg from './svg-components/enemyBullet2.svg';
 import { Vector2 } from './vector';
 import { Rocket, RocketClass, GenericalBullet, BulletDrawn } from './components/rocket';
 import ViewPort from './ViewPort';
@@ -17,6 +20,8 @@ import Life from './components/Life';
 import { BulletDescription } from './components/BulletDescription';
 
 function App() {
+
+  document.title = "ASTEROIDS";
 
   const window = ViewPort();
 
@@ -44,9 +49,8 @@ function App() {
   const reset = () => {
     setAmountBullet(100);
     setRocketLife(4);
-    if (score > localStorage.getItem("Score"))
-      localStorage.setItem("Score", score);
     setScore(0);
+    setBulletType(0);
   };
 
   //processamento do movimento das balas
@@ -94,7 +98,7 @@ function App() {
               })
               , new Vector2([0, 1, 0, -1][FaceRandom], [1, 0, -1, 0][FaceRandom]).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
           ];
-        } else if (Number(Math.random()) < 1) {
+        } else if (Number(Math.random()) < 0.16) {
           const setBullet = Number(Math.random());
           let bulletCurrent = 0;
           for (let i = 0; i < GenericalBullet.length; i++)
@@ -104,10 +108,17 @@ function App() {
               positionEnemy,
               32,
               {},
-              satellite_svg,
+              [enemyBdefault_svg, enemyBullet1_svg, enemyBullet2_svg][bulletCurrent - 1],
               1,
               7 + Math.floor(Math.random() * 5),
-              () => { setBulletType(bulletCurrent - 1)})
+              () => {
+                setBulletType((l) => {
+                  if (l === bulletCurrent - 1) {
+                    setAmountBullet(100);
+                  }
+                  return bulletCurrent - 1;
+                })
+              })
               , new Vector2([0, 1, 0, -1][FaceRandom], [1, 0, -1, 0][FaceRandom]).normalize.dotScalar(1 / 10 + Math.random() * (1 / 5 - 1 / 10))]
           ];
         } else {
@@ -131,7 +142,10 @@ function App() {
             aux_[0][i].life = 0;
             aux_[1][j][0].life -= aux_[0][i].damage;
             if (aux_[1][j][0].life <= 0) {
-              setScore((s) => s + aux_[1][j][0].score);
+              setScore((s) => {
+                if (s + aux_[1][j][0].score > localStorage.getItem("Score"))
+                  localStorage.setItem("Score", s + aux_[1][j][0].score);
+                return s + aux_[1][j][0].score; });
               aux_[1][j][0].action();
               aux_[1][j][0].action = () => { };
             }
@@ -148,7 +162,7 @@ function App() {
         }), e[1].map((enemy) => {
           enemy[0].x += enemy[1].x;
           enemy[0].y += enemy[1].y;
-          if (new Vector2(enemy[0].x - window.width / 2, enemy[0].y - window.height / 2).magnitude < enemy[0].size && state !== 0) {
+          if (new Vector2(enemy[0].x - window.width / 2, enemy[0].y - window.height / 2).magnitude < enemy[0].size * 0.75 && state !== 0) {
             enemy[0].life = 0;
             setRocketLife((l) => {
               if (l - 1 === 0) {
@@ -190,7 +204,7 @@ function App() {
       <Title submitHandle={(e) => { setState((l) => { reset(); return l + 1; }) }} state={state} window={window} />
       <Life state={state} life={rocketLife} window={window} />
       <BulletBar state={state} window={window} amountBullet={amountBullet} />
-      <BulletDescription window={window} bullettype={bulletType} delay={10} state={state} />
+      <BulletDescription window={window} bullettype={bulletType} state={state} />
       {entity[0].map((e, i) => { return <BulletDrawn bullet={e} key={i} /> })}
       {entity[1].map((e, i) => { return <Meteor enemy={e[0]} key={i} /> })}
       <Footer1 state={state} />

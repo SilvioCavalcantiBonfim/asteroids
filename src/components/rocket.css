@@ -3,3 +3,13 @@
     top: 100px;
     left: 100px;
 }
+
+.bullet{
+    animation-timing-function: linear;
+    animation-name: bullet;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bullet {
+    100% {transform: rotate(360deg);}
+}

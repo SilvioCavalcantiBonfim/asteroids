@@ -8,6 +8,7 @@
 }
 .board__score{
     top: 3px;
+    z-index: 10000;
     position: absolute;
     text-align: center;
     transition: left 1s, top 1s;
