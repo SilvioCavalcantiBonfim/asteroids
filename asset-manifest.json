@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.71012828.css",
-    "main.js": "/static/js/main.695ee696.js",
-    "static/js/787.9ab574ee.chunk.js": "/static/js/787.9ab574ee.chunk.js",
-    "static/media/rocketpopstraight.ttf": "/static/media/rocketpopstraight.0507c77cf52a88b74159.ttf",
-    "static/media/SF Pixelate Bold.ttf": "/static/media/SF Pixelate Bold.4bf4ea0c7a86821ab135.ttf",
-    "static/media/04B_31__.TTF": "/static/media/04B_31__.ab6bb8642062f3ab303b.TTF",
-    "static/media/satellite.svg": "/static/media/satellite.a182ef1a8027462f2a7fff1c32850e75.svg",
-    "static/media/meteor.svg": "/static/media/meteor.f89ba8008411adb5d57d01588d745c3f.svg",
-    "static/media/rocket.svg": "/static/media/rocket.ae6d4106085485b82cc89a5a22bc0cbb.svg",
-    "static/media/bullet1.svg": "/static/media/bullet1.bc7c7597bccbacec1d3c01dd0e8e1992.svg",
-    "index.html": "/index.html",
-    "static/media/life.svg": "/static/media/life.48f2c557eba6dda8b61645dae64344aa.svg",
-    "static/media/bulletdefault.svg": "/static/media/bulletdefault.0d44cbfb115383d91c01ee128090226d.svg",
-    "static/media/enemyBullet1.svg": "/static/media/enemyBullet1.f65c643b4abf36d367401f5738997c8d.svg",
-    "static/media/enemyBulletdefault.svg": "/static/media/enemyBulletdefault.867279b9577d2c9414be2d829c6ae919.svg",
-    "static/media/bullet2.svg": "/static/media/bullet2.65e7e279394b4e0498b40a6062c26721.svg",
-    "static/media/play.svg": "/static/media/play.3a98226a14de771cf2e19fe20d6fae8e.svg",
-    "static/media/enemyBullet2.svg": "/static/media/enemyBullet2.1628ade0a1c35dcfd2796647baa84618.svg",
-    "main.71012828.css.map": "/static/css/main.71012828.css.map",
-    "main.695ee696.js.map": "/static/js/main.695ee696.js.map",
-    "787.9ab574ee.chunk.js.map": "/static/js/787.9ab574ee.chunk.js.map"
+    "main.css": "/asteroids/static/css/main.d51557a3.css",
+    "main.js": "/asteroids/static/js/main.a3b06e69.js",
+    "static/js/787.9ab574ee.chunk.js": "/asteroids/static/js/787.9ab574ee.chunk.js",
+    "static/media/rocketpopstraight.ttf": "/asteroids/static/media/rocketpopstraight.0507c77cf52a88b74159.ttf",
+    "static/media/SF Pixelate Bold.ttf": "/asteroids/static/media/SF Pixelate Bold.4bf4ea0c7a86821ab135.ttf",
+    "static/media/04B_31__.TTF": "/asteroids/static/media/04B_31__.ab6bb8642062f3ab303b.TTF",
+    "static/media/satellite.svg": "/asteroids/static/media/satellite.a182ef1a8027462f2a7fff1c32850e75.svg",
+    "static/media/meteor.svg": "/asteroids/static/media/meteor.f89ba8008411adb5d57d01588d745c3f.svg",
+    "static/media/rocket.svg": "/asteroids/static/media/rocket.ae6d4106085485b82cc89a5a22bc0cbb.svg",
+    "static/media/bullet1.svg": "/asteroids/static/media/bullet1.bc7c7597bccbacec1d3c01dd0e8e1992.svg",
+    "index.html": "/asteroids/index.html",
+    "static/media/life.svg": "/asteroids/static/media/life.48f2c557eba6dda8b61645dae64344aa.svg",
+    "static/media/bulletdefault.svg": "/asteroids/static/media/bulletdefault.0d44cbfb115383d91c01ee128090226d.svg",
+    "static/media/enemyBullet1.svg": "/asteroids/static/media/enemyBullet1.f65c643b4abf36d367401f5738997c8d.svg",
+    "static/media/enemyBulletdefault.svg": "/asteroids/static/media/enemyBulletdefault.867279b9577d2c9414be2d829c6ae919.svg",
+    "static/media/bullet2.svg": "/asteroids/static/media/bullet2.65e7e279394b4e0498b40a6062c26721.svg",
+    "static/media/play.svg": "/asteroids/static/media/play.3a98226a14de771cf2e19fe20d6fae8e.svg",
+    "static/media/enemyBullet2.svg": "/asteroids/static/media/enemyBullet2.1628ade0a1c35dcfd2796647baa84618.svg",
+    "main.d51557a3.css.map": "/asteroids/static/css/main.d51557a3.css.map",
+    "main.a3b06e69.js.map": "/asteroids/static/js/main.a3b06e69.js.map",
+    "787.9ab574ee.chunk.js.map": "/asteroids/static/js/787.9ab574ee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.71012828.css",
-    "static/js/main.695ee696.js"
+    "static/css/main.d51557a3.css",
+    "static/js/main.a3b06e69.js"
   ]
 }
