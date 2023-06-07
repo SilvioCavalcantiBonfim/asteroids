@@ -6,7 +6,7 @@
             "iconUrl": "https://cdn.simpleicons.org/react"
         }
     ],
-    "description": "O projeto Asteroids ReactJS é uma recriação do clássico jogo de arcade "Asteroids" utilizando a biblioteca ReactJS. Neste emocionante jogo de ação, os jogadores assumem o controle de uma nave espacial e devem destruir asteroides em um campo de asteróides em constante movimento. Os jogadores podem desviar dos asteroides e atirar neles para destruí-los, acumulando pontos à medida que avançam nos níveis.",
+    "description": "O projeto Asteroids ReactJS é uma recriação do clássico jogo de arcade 'Asteroids' utilizando a biblioteca ReactJS. Neste emocionante jogo de ação, os jogadores assumem o controle de uma nave espacial e devem destruir asteroides em um campo de asteróides em constante movimento. Os jogadores podem desviar dos asteroides e atirar neles para destruí-los, acumulando pontos à medida que avançam nos níveis.",
     "deploy": [{
         "url": "https://silviocavalcantibonfim.github.io/asteroids/",
         "https://cdn.simpleicons.org/githubpages"
